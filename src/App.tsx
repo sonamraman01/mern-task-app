@@ -4,7 +4,12 @@ import AppRouter from "./router/AppRouter";
 function App() {
   return (
     <>
-      <AppRouter />
+      <div
+        className="bg-gray-800 min-h-screen font-sans "
+        style={{ minHeight: "100vh" }}
+      >
+        <AppRouter />
+      </div>
     </>
   );
 }

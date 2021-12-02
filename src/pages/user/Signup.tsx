@@ -7,8 +7,16 @@ const Signup = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [cpassword, setCPassword] = useState("");
+  const [errData, setErrData] = useState("")
 
-  const handleSignup = async () => {
+  const handleSignup = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    if (cpassword !== password) {
+      setErrData("Please Enter The Same Password");
+      return;
+    }
+    
     const dataObj: IUserData = {
       username: username,
       email: email,
@@ -54,6 +62,7 @@ const Signup = () => {
             <h1 className=" font-bold">Username</h1>
             <input
               type="text"
+              name="username"
               className="input"
               placeholder="Username"
               value={username}
@@ -65,6 +74,7 @@ const Signup = () => {
             <h1 className=" font-bold">Email</h1>
             <input
               type="email"
+              name="email"
               className="input"
               placeholder="Email"
               value={email}
@@ -76,6 +86,7 @@ const Signup = () => {
             <h1 className=" font-bold">Password</h1>
             <input
               type="password"
+              name="password"
               className="input"
               placeholder="******"
               value={password}
@@ -83,9 +94,22 @@ const Signup = () => {
             />
           </div>
 
+          <div className="mt-6">
+            <h1 className=" font-bold">Confirm Password</h1>
+            <input
+              type="password"
+              name="cpassword"
+              className="input"
+              placeholder="******"
+              value={cpassword}
+              onChange={(e) => setCPassword(e.target.value)}
+            />
+          </div>
+          <div className="mt-1 text-red-500">{errData}</div>
+
           <button
             className="bg-gray-500 mx-auto flex justify-center rounded shadow-lg py-2 px-5 mt-6"
-            onClick={handleSignup}
+            onClick={(e)=>handleSignup(e)}
           >
             Signup
           </button>

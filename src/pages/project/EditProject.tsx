@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { ISendProjectData, PROJECTURL, useGetProjectDetails } from "../../hooks/project";
+import {
+  ISendProjectData,
+  PROJECTURL,
+  useGetProjectDetails,
+} from "../../hooks/project";
 import DatePicker from "react-datepicker";
+import moment from "moment";
 
 const EditProject = () => {
   const history = useHistory();
@@ -12,21 +17,21 @@ const EditProject = () => {
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date());
 
-  const { getProjectDetail, items} = useGetProjectDetails();
+  const { getProjectDetail, item } = useGetProjectDetails();
 
-  useEffect(()=>{
+  useEffect(() => {
     getProjectDetail(Number(id));
-  },[id])
+  }, [id]);
 
-  useEffect(()=>{
-    if(items?.[0]){
-      setTitle(items[0].title ?? "")
-      setClient(items[0].client ?? "")
-      setDescription(items[0].description ?? "")
-      setStartDate(items[0].start ?? new Date())
-      setEndDate(items[0].end ?? new Date())
+  useEffect(() => {
+    if (item?.[0]) {
+      setTitle(item[0].title ?? "");
+      setClient(item[0].client ?? "");
+      setDescription(item[0].description ?? "");
+      setStartDate(item[0].start ?? new Date());
+      setEndDate(item[0].end ?? new Date());
     }
-  },[items])
+  }, [item]);
 
   const editItem = async () => {
     const dataObj: ISendProjectData = {
@@ -47,13 +52,15 @@ const EditProject = () => {
     });
     const res = await response.json();
     console.log(res);
-    history.push("/project")
+    history.push("/project");
   };
-  
+
   return (
     <div className="bg-gray-600 rounded shadow p-6 m-10 w-full lg:w-3/4 lg:max-w-lg md:max-w-2xl mx-auto">
       <div className="mb-4">
-        <h1 className="text-white text-2xl text-center font-bold">Edit Project</h1>
+        <h1 className="text-white text-2xl text-center font-bold">
+          Edit Project
+        </h1>
 
         <div className="mt-6">
           <h1 className="text-white font-bold">Title</h1>
@@ -61,8 +68,8 @@ const EditProject = () => {
             type="text"
             className="input"
             placeholder="Title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
           />
         </div>
 
@@ -75,6 +82,14 @@ const EditProject = () => {
               dateFormat="dd/MM/yyyy"
               onChange={(date: Date) => setStartDate(date)}
             />
+
+            {/* <input
+              type="date"
+              className="input"
+              placeholder="Start Date"
+              value={moment(startDate).format("L")}
+              onChange={(e) => setStartDate(new Date(e.target.value))}
+            /> */}
           </div>
 
           <div className="">
@@ -94,8 +109,8 @@ const EditProject = () => {
             type="text"
             className="input"
             placeholder="Client"
-              value={client}
-              onChange={(e) => setClient(e.target.value)}
+            value={client}
+            onChange={(e) => setClient(e.target.value)}
           />
         </div>
 
@@ -104,16 +119,13 @@ const EditProject = () => {
           <textarea
             className="resize-none break-words h-20 input"
             placeholder="Type here..."
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
           />
         </div>
 
         <div className="flex items-center justify-between">
-          <button
-            className="button"
-            onClick={editItem}
-          >
+          <button className="button" onClick={editItem}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5 mr-2"

@@ -1,15 +1,15 @@
-import moment from "moment";
 import { useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { useGetProjectDetails } from "../../hooks/project";
+import { useGetTaskDetails } from "../../hooks/task";
+import moment from "moment";
 
-const ViewProject = () => {
-  const { item, getProjectDetail } = useGetProjectDetails();
+const ViewTask = () => {
+  const { item, getTaskDetail } = useGetTaskDetails();
   const history = useHistory();
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-    getProjectDetail(parseInt(id));
+    getTaskDetail(Number(id));
   }, []);
 
   return (
@@ -27,7 +27,7 @@ const ViewProject = () => {
             <div className=" mr-2">
               <h1 className=" font-bold">Start Date</h1>
               <p className="text-gray-200">
-                {moment(item[0]?.start).format('L')}
+                {moment(item[0]?.start).format("L")}
               </p>
             </div>
             <div className=" mr-2">
@@ -47,15 +47,22 @@ const ViewProject = () => {
             <div className="">
               <h1 className="font-bold">End Date</h1>
               <p className="text-gray-200">
-                {moment(item[0]?.end).format('L')}
+                {moment(item[0]?.end).format("L")}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="mt-6">
-          <h1 className=" font-bold">Client</h1>
-          <p className="text-gray-200">{item[0]?.client}</p>
+        <div className="mt-9 flex items-center justify-between">
+          <div className="">
+            <h1 className="font-bold">Assigned To</h1>
+            <p className="text-gray-200">{item[0]?.assigned_to}</p>
+          </div>
+
+          <div className="">
+          <h1 className="font-bold">Project</h1>
+            <p className="text-gray-200">{item[0]?.project_id}</p>
+          </div>
         </div>
 
         <div className="mt-6">
@@ -66,7 +73,7 @@ const ViewProject = () => {
         <div className="flex items-center justify-between mt-5">
           <button
             className="button"
-            onClick={() => history.push(`/editproject/${id}`)}
+            onClick={() => history.push(`/edittask/${id}`)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -84,7 +91,7 @@ const ViewProject = () => {
             </svg>
             <span>Edit</span>
           </button>
-          <button className="button" onClick={() => history.push("/project")}>
+          <button className="button" onClick={() => history.push("/task")}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5 mr-2"
@@ -105,4 +112,4 @@ const ViewProject = () => {
   );
 };
 
-export default ViewProject;
+export default ViewTask;

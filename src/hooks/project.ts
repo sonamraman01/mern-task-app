@@ -28,20 +28,20 @@ export const useFetchProjects = () => {
 };
 
 export const useGetProjectDetails = () => {
-  const [items, setItems] = useState<ISendProjectData[]>([]);
+  const [item, setItem] = useState<ISendProjectData[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const getProjectDetail = useCallback((id: number) => {
     setLoading(true);
     fetch(`${PROJECTURL}/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        setItems(data.payload);
+        setItem(data.payload);
       })
       .then(() => {
         setLoading(false);
       });
   }, []);
-  return { items, loading, getProjectDetail };
+  return { item, loading, getProjectDetail };
 };
 
 export const useDeleteAllProjects = () => {

@@ -4,7 +4,10 @@ import CreateProject from "../pages/project/CreateProject";
 import EditProject from "../pages/project/EditProject";
 import Projects from "../pages/project/Projects";
 import ViewProject from "../pages/project/ViewProject";
+import CreateTask from "../pages/task/CreateTask";
+import EditTask from "../pages/task/EditTask";
 import Tasks from "../pages/task/Tasks";
+import ViewTask from "../pages/task/ViewTask";
 import Create from "../pages/todo/Create";
 import EditTodo from "../pages/todo/EditTodo";
 import Todos from "../pages/todo/Todos";
@@ -15,22 +18,23 @@ import Users from "../pages/user/Users";
 const Routes = () => {
   return (
     <BrowserRouter>
-      <div className="bg-gray-800 min-h-screen font-sans " style={{minHeight: "100vh"}}>
-        <Header />
-        <Switch>
-          <Route exact path="/" component={Todos} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/signup" component={Signup} />
-          <Route exact path="/user" component={Users} />
-          <Route exact path="/createtodo" component={Create} />
-          <Route exact path="/edit/:id" component={EditTodo} />
-          <Route exact path="/project" component={Projects} />
-          <Route exact path="/createproject" component={CreateProject} />
-          <Route exact path="/editproject/:id" component={EditProject} />
-          <Route exact path="/viewproject/:id" component={ViewProject} />
-          <Route exact path="/task" component={Tasks} />
-        </Switch>
-      </div>
+      <Header />
+      <Switch>
+        <Route exact path="/" component={Todos} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/signup" component={Signup} />
+        <Route exact path="/user" component={Users} />
+        <Route exact path="/createtodo" component={Create} />
+        <Route exact path="/edit/:id" component={EditTodo} />
+        <Route exact path="/project" component={Projects} />
+        <Route exact path="/createproject" component={CreateProject} />
+        <Route exact path="/editproject/:id" component={EditProject} />
+        <Route exact path="/viewproject/:id" component={ViewProject} />
+        <Route exact path="/task" component={Tasks} />
+        <Route exact path="/createtask" component={CreateTask} />
+        <Route exact path="/edittask/:id" component={EditTask} />
+        <Route exact path="/viewtask/:id" component={ViewTask} />
+      </Switch>
     </BrowserRouter>
   );
 };

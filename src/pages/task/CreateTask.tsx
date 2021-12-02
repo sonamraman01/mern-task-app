@@ -1,27 +1,38 @@
-import { useState } from "react";
-import { ISendProjectData, PROJECTURL } from "../../hooks/project";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { useHistory } from "react-router-dom";
-import moment from "moment";
+import { useFetchProjects } from "../../hooks/project";
+import { ITaskData, TASKURL } from "../../hooks/task";
+import { useFetchUsers } from "../../hooks/user";
 
-const CreateProject = () => {
+const CreateTask = () => {
   const history = useHistory();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [client, setClient] = useState("");
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date());
+  const [assignedTo, setAssignedTo] = useState<number>();
+  const [projectId, setProjectId] = useState<number>();
+
+  const { items, getProjects } = useFetchProjects();
+  const { users, getUsers } = useFetchUsers();
+
+  useEffect(() => {
+    getProjects();
+    getUsers();
+  }, []);
 
   const addItems = async () => {
-    const dataObj: ISendProjectData = {
+    const dataObj: ITaskData = {
       title: title,
       description: description,
-      client: client,
       start: startDate,
       end: endDate,
+      assigned_to: assignedTo,
+      project_id: projectId,
     };
 
-    const response = await fetch(PROJECTURL, {
+    const response = await fetch(TASKURL, {
       method: "POST",
       body: JSON.stringify(dataObj),
       headers: {
@@ -33,17 +44,19 @@ const CreateProject = () => {
     console.log(res);
     setTitle("");
     setDescription("");
-    setClient("");
     setStartDate(new Date());
     setEndDate(new Date());
-    history.push("/project");
+    setAssignedTo(0);
+    setProjectId(0);
+    history.push("/task");
   };
+
+  console.log("select",description)
+  
 
   return (
     <div className="bg-gray-600 rounded shadow p-6 m-10 w-full lg:w-3/4 lg:max-w-lg md:max-w-2xl mx-auto">
-      <h1 className="text-white text-2xl text-center font-bold">
-        Create Project
-      </h1>
+      <h1 className="text-white text-2xl text-center font-bold">Create Task</h1>
 
       <div className="mt-6">
         <h1 className="text-white font-bold">Title</h1>
@@ -65,14 +78,6 @@ const CreateProject = () => {
             dateFormat="dd/MM/yyyy"
             onChange={(date: Date) => setStartDate(date)}
           />
-
-          {/* <input
-            type="date"
-            className="input"
-            placeholder="Start Date"
-            value={moment(startDate).format()}
-            onChange={(e) => setStartDate(new Date(e.target.value))}
-          /> */}
         </div>
 
         <div className="">
@@ -83,26 +88,7 @@ const CreateProject = () => {
             dateFormat="dd/MM/yyyy"
             onChange={(date: Date) => setEndDate(date)}
           />
-
-          {/* <input
-            type="date"
-            className="input"
-            placeholder="End Date"
-            value={moment(endDate).format()}
-            onChange={(e) => setEndDate(new Date(e.target.value))}
-          /> */}
         </div>
-      </div>
-
-      <div className="mt-4">
-        <h1 className="text-white font-bold">Client</h1>
-        <input
-          type="text"
-          className="input"
-          placeholder="Client"
-          value={client}
-          onChange={(e) => setClient(e.target.value)}
-        />
       </div>
 
       <div className="mt-6">
@@ -113,6 +99,36 @@ const CreateProject = () => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
+      </div>
+
+      <div className="mt-4">
+        <h1 className="text-white font-bold">Assigned To</h1>
+        <div className="mt-2">
+          <select
+            className="border border-gray-800 py-2 px-3  rounded w-full focus:outline-none"
+            value={assignedTo}
+            onChange={(e)=>setAssignedTo(Number(e.target.value))}
+          >
+            {users.flatMap((user,idx)=>(
+                <option key={idx} value={user.id}>{user.username}</option>
+              ))}
+          </select>
+        </div>
+      </div>
+
+      <div className="mt-4">
+        <h1 className="text-white font-bold">Project</h1>
+        <div className="mt-2">
+          <select
+            className="border border-gray-800 py-2 px-3  rounded w-full focus:outline-none"
+            value={projectId}
+            onChange={(e)=>setProjectId(Number(e.target.value))}
+          >
+              {items.flatMap((item,idx)=>(
+                <option key={idx} value={item.id}>{item.title}</option>
+              ))}
+          </select>
+        </div>
       </div>
 
       <div className="justify-between items-center flex">
@@ -132,7 +148,7 @@ const CreateProject = () => {
           Create
         </button>
 
-        <button className="button" onClick={() => history.push("/project")}>
+        <button className="button" onClick={() => history.push("/task")}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 mr-2"
@@ -152,4 +168,4 @@ const CreateProject = () => {
   );
 };
 
-export default CreateProject;
+export default CreateTask;
