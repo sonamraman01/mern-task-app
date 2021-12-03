@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { ISendTodoData, TODOURL } from "../../hooks/todos";
 
@@ -7,7 +7,7 @@ const Create = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const addItems = async () => {
+  const addItems = useCallback(async()=>{
     const dataObj: ISendTodoData = {
       title: title,
       description: description,
@@ -27,7 +27,7 @@ const Create = () => {
     setTitle("");
     setDescription("");
     history.push("/")
-  };
+  },[title, description ])
 
   return (
     <div className="bg-gray-600 rounded shadow p-6 m-10 w-full lg:w-3/4 lg:max-w-lg md:max-w-2xl mx-auto">

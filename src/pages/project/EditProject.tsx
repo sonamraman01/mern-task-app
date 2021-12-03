@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import {
   ISendProjectData,
@@ -33,7 +33,7 @@ const EditProject = () => {
     }
   }, [item]);
 
-  const editItem = async () => {
+  const editItem = useCallback(async () => {
     const dataObj: ISendProjectData = {
       title: title,
       description: description,
@@ -53,7 +53,7 @@ const EditProject = () => {
     const res = await response.json();
     console.log(res);
     history.push("/project");
-  };
+  },[title, description, client, startDate, endDate]);
 
   return (
     <div className="bg-gray-600 rounded shadow p-6 m-10 w-full lg:w-3/4 lg:max-w-lg md:max-w-2xl mx-auto">

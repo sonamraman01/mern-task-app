@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { useHistory } from "react-router-dom";
 import { useFetchProjects } from "../../hooks/project";
@@ -22,7 +22,7 @@ const CreateTask = () => {
     getUsers();
   }, []);
 
-  const addItems = async () => {
+  const addItems = useCallback(async () => {
     const dataObj: ITaskData = {
       title: title,
       description: description,
@@ -49,7 +49,7 @@ const CreateTask = () => {
     setAssignedTo(0);
     setProjectId(0);
     history.push("/task");
-  };
+  },[title, description, startDate, endDate, assignedTo, projectId]);
 
   console.log("select",description)
   

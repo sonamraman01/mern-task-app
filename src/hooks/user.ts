@@ -1,4 +1,5 @@
 export const USERURL = "http://localhost:5000/user";
+export const BASEURL = "http://localhost:5000";
 import { useState, useCallback } from "react";
 export interface IUserData {
   id?: number;

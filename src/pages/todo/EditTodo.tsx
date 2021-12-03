@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { getTodoDetails, ISendTodoData, TODOURL } from "../../hooks/todos";
 
@@ -20,7 +20,7 @@ const EditTodo = () => {
     }
   },[item])
 
-  const editItem = async () => {
+  const editItem = useCallback(async () => {
     const dataObj: ISendTodoData = {
       title: title,
       description: description,
@@ -37,7 +37,7 @@ const EditTodo = () => {
     const res = await response.json();
     console.log(res);
     history.push("/")
-  };
+},[title, description]);
 
   return (
     <div className="bg-gray-600 rounded shadow p-6 m-10 w-full lg:w-3/4 lg:max-w-lg md:max-w-2xl mx-auto">

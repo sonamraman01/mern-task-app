@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { ISendProjectData, PROJECTURL } from "../../hooks/project";
 import DatePicker from "react-datepicker";
 import { useHistory } from "react-router-dom";
@@ -12,7 +12,7 @@ const CreateProject = () => {
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date());
 
-  const addItems = async () => {
+  const addItems = useCallback(async () => {
     const dataObj: ISendProjectData = {
       title: title,
       description: description,
@@ -37,7 +37,7 @@ const CreateProject = () => {
     setStartDate(new Date());
     setEndDate(new Date());
     history.push("/project");
-  };
+  },[title, description, client, startDate, endDate]);
 
   return (
     <div className="bg-gray-600 rounded shadow p-6 m-10 w-full lg:w-3/4 lg:max-w-lg md:max-w-2xl mx-auto">
