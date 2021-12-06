@@ -60,7 +60,7 @@ const CreateProject = () => {
         <div>
           <h1 className="text-white font-bold">Start Date</h1>
           <DatePicker
-            selected={startDate}
+            selected={moment(startDate).toDate()}
             className="input"
             dateFormat="dd/MM/yyyy"
             onChange={(date: Date) => setStartDate(date)}
@@ -78,7 +78,7 @@ const CreateProject = () => {
         <div className="">
           <h1 className="text-white font-bold">End Date</h1>
           <DatePicker
-            selected={endDate}
+            selected={moment(endDate).toDate()}
             className="input"
             dateFormat="dd/MM/yyyy"
             onChange={(date: Date) => setEndDate(date)}

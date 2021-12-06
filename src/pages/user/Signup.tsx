@@ -37,7 +37,8 @@ const Signup = () => {
     setUsername("");
     setEmail("");
     setPassword("");
-    setShowModal(false)
+    setShowModal(false);
+    setIsLoggedIn(true)
   };
 
   return (

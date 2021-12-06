@@ -4,6 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { useGetTaskDetails } from "../../hooks/task";
 import { useFetchProjects } from "../../hooks/project";
 import { useFetchUsers } from "../../hooks/user";
+import moment from "moment";
 
 const EditTask = () => {
   const history = useHistory();
@@ -62,7 +63,7 @@ const EditTask = () => {
           <div>
             <h1 className="text-white font-bold">Start Date</h1>
             <DatePicker
-              selected={startDate}
+              selected={moment(startDate).toDate()}
               className="input"
               dateFormat="dd/MM/yyyy"
               onChange={(date: Date) => setStartDate(date)}
@@ -72,7 +73,7 @@ const EditTask = () => {
           <div className="">
             <h1 className="text-white font-bold">End Date</h1>
             <DatePicker
-              selected={endDate}
+              selected={moment(endDate).toDate()}
               className="input"
               dateFormat="dd/MM/yyyy"
               onChange={(date: Date) => setEndDate(date)}
@@ -99,7 +100,7 @@ const EditTask = () => {
               onChange={(e) => setAssignedTo(Number(e.target.value))}
             >
               {users.flatMap((user, idx) => (
-                <option value={user.id}>{user.username}</option>
+                <option key={idx} value={user.id}>{user.username}</option>
               ))}
             </select>
           </div>
@@ -141,7 +142,7 @@ const EditTask = () => {
             </svg>
             <span>Save Changes</span>
           </button>
-          <button className="button" onClick={() => history.push("/project")}>
+          <button className="button" onClick={() => history.push("/task")}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5 mr-2"

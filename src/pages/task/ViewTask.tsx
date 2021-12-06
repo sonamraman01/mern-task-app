@@ -2,15 +2,27 @@ import { useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useGetTaskDetails } from "../../hooks/task";
 import moment from "moment";
+import { useFetchUsers } from "../../hooks/user";
+import { useFetchProjects } from "../../hooks/project";
 
 const ViewTask = () => {
   const { item, getTaskDetail } = useGetTaskDetails();
   const history = useHistory();
   const { id } = useParams<{ id: string }>();
 
+  const { items, getProjects } = useFetchProjects();
+  const { users, getUsers } = useFetchUsers();
+
+  useEffect(() => {
+    getProjects();
+    getUsers();
+  }, []);
+
   useEffect(() => {
     getTaskDetail(Number(id));
   }, []);
+
+  const index = items.findIndex((a)=>a.id == item[0]?.assigned_to)
 
   return (
     <div className="bg-gray-600 text-white rounded shadow p-6 m-10 w-full lg:w-3/4 lg:max-w-lg md:max-w-2xl mx-auto">

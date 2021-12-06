@@ -21,8 +21,8 @@ const Login = () => {
     if (response && response.ok) {
       const data = await response.json();
       console.log(data);
-      // localStorage.id = data.user.id;
-      // localStorage.token = data.user.accesstoken;
+      localStorage.id = data.payload.user.id;
+      localStorage.token = data.payload.access_token;
       setIsLoggedIn(true);
       setShowModal(false);
     }else{
