@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import Alert from "../components/Alert";
 import Modal from "../components/Modal";
@@ -10,6 +10,14 @@ const Header = () => {
   const [showModal, setShowModal] = useState(false);
   const [showAlert, setAlert] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const token = localStorage.getItem("token")
+
+  useEffect(() => {
+    if(token !== null){
+      setIsLoggedIn(true)
+    }
+  }, [token])
 
   return (
     <>

@@ -1,14 +1,32 @@
-import {useContext } from "react";
+import { useContext } from "react";
 import HeaderContext from "../context/headerContext";
+import { BASEURL } from "../hooks/user";
+
+const userId = localStorage.getItem("id");
+const token = localStorage.getItem("token")
 
 const Alert = () => {
-  const {setAlert, setIsLoggedIn} = useContext(HeaderContext)
+  const { setAlert, setIsLoggedIn } = useContext(HeaderContext);
 
-  const handleLogout=()=>{
-    setAlert(false)
-    setIsLoggedIn(false);
-    // window.location.href = "/";
-  }
+  const handleLogout = async () => {
+    const response = await fetch(`${BASEURL}/logout`, {
+      method: "POST",
+      body: JSON.stringify({ userId }),
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`
+      },
+    });
+    if (response && response.ok) {
+      // const data = await response.json();
+      // console.log(data);
+      setAlert(false);
+      setIsLoggedIn(false);
+      // window.location.href = "/";
+    }
+    console.log(userId)
+  };
 
   return (
     <>
