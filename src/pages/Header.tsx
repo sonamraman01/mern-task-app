@@ -10,6 +10,7 @@ const Header = () => {
   const [showModal, setShowModal] = useState(false);
   const [showAlert, setAlert] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [active, setActive] = useState("todo")
 
   const token = localStorage.getItem("token")
 
@@ -32,8 +33,8 @@ const Header = () => {
         }}
       >
         <nav className="flex items-center justify-between flex-wrap bg-teal-500 p-6 bg-gray-600">
-          <div className=" flex  items-center lg:w-auto w-full justify-between text-white">
-            <div className="flex items-center mr-6  relative justify-between  lg:static lg:justify-start">
+          <div className="flex items-center lg:w-auto w-full justify-between text-white">
+            <div className="flex items-center mr-6 relative justify-between lg:static lg:justify-start">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-8 w-8 mr-2"
@@ -54,9 +55,9 @@ const Header = () => {
             </div>
 
             <button
-              className="text-white cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
+              className="text-white text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
               type="button"
-              onClick={() => setNavbarOpen(!navbarOpen)}
+              onClick={() => {setNavbarOpen(!navbarOpen)}}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -78,29 +79,29 @@ const Header = () => {
           <div className={"md:flex flex-grow" + (navbarOpen ? " " : " hidden")}>
             <div className="md:flex-grow mt-5 md:mt-0 flex flex-col lg:flex-row list-none lg:ml-auto items-center w-auto text-sm">
               <button
-                onClick={() => history.push("/")}
-                className=" inline-block text-teal-200 text-white md:mr-4 font-bold"
+                onClick={() => {history.push("/"); setActive("todo")}}
+                className={`navbar-item ${active === "todo" ? "underline" : ""}`}
               >
                 Todos
               </button>
 
               <button
-                onClick={() => history.push("/user")}
-                className=" inline-block  text-teal-200 text-white md:mr-4 font-bold"
+                onClick={() => {history.push("/user"); setActive("user")}}
+                className={`navbar-item ${active === "user" ? "underline" : ""}`}
               >
                 Users
               </button>
 
               <button
-                onClick={() => history.push("/project")}
-                className=" inline-block text-teal-200 text-white md:mr-4 font-bold"
+                onClick={() => {history.push("/project"); setActive("project")}}
+                className={`navbar-item ${active === "project" ? "underline" : ""}`}
               >
                 Projects
               </button>
 
               <button
-                onClick={() => history.push("/task")}
-                className=" inline-block text-teal-200 text-white md:mr-4 font-bold"
+                onClick={() => {history.push("/task"); setActive("task")}}
+                className={`navbar-item ${active === "task" ? "underline" : ""}`}
               >
                 Tasks
               </button>
@@ -109,14 +110,14 @@ const Header = () => {
             {!isLoggedIn ? (
               <button
                 onClick={() => setShowModal(true)}
-                className="bg-gray-500 text-white rounded shadow-lg py-2 px-5 mr-3"
+                className="navbar-btn"
               >
                 Login
               </button>
             ) : (
               <button
                 onClick={() => setAlert(true)}
-                className="bg-gray-500 text-white rounded shadow-lg py-2 px-5"
+                className="navbar-btn"
               >
                 Logout
               </button>

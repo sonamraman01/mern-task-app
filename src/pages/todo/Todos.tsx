@@ -13,7 +13,7 @@ const Todos = () => {
   const { items, getTodos } = useFetchTodos();
   const { deleteAllTodos } = useDeleteAllTodos();
   const { deleteTodo } = useDeleteTodo();
-  // const [isCompleted, setIsCompleted] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(false);
 
   useEffect(() => {
     getTodos();
@@ -21,7 +21,7 @@ const Todos = () => {
 
   // useEffect(()=>{
   //   if(items){
-  //     setIsCompleted(items ?? false)
+  //     setIsCompleted(items?.isCompleted ?? false)
   //   }
   // },[items])
 
@@ -32,7 +32,7 @@ const Todos = () => {
   //       isCompleted: isCompleted,
   //     };
 
-  //     const response = await fetch(`${TODOURL}/${id}`, {
+  //     const response = await fetch(`${TODOURL}/isComplete/${id}`, {
   //       method: "PATCH",
   //       body: JSON.stringify(dataObj),
   //       headers: {
@@ -76,6 +76,7 @@ const Todos = () => {
                     />
                   </label>
                 </div> */}
+
                 <p className="w-full capitalize">{item.title}</p>
                 <button
                   className="iconBtn mr-2 "
