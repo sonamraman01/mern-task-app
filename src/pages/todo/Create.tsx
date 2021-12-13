@@ -30,11 +30,11 @@ const Create = () => {
   },[title, description ])
 
   return (
-    <div className="bg-gray-600 rounded shadow p-6 m-10 w-full lg:w-3/4 lg:max-w-lg md:max-w-2xl mx-auto">
-      <h1 className="text-white text-2xl text-center font-bold">Create Todo</h1>
+    <div className="section">
+      <h1 className="heading">Create Todo</h1>
 
       <div className="mt-6">
-        <h1 className="text-white font-bold">Title</h1>
+        <h1 className="font-bold">Title</h1>
         <input
           className="input"
           placeholder="Title"
@@ -44,7 +44,7 @@ const Create = () => {
       </div>
 
       <div className="mt-6">
-        <h1 className="text-white  font-bold">Description</h1>
+        <h1 className="font-bold">Description</h1>
         <textarea
           className="resize-none break-words h-40 input"
           placeholder="Type here..."

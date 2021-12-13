@@ -42,14 +42,14 @@ const EditTask = () => {
   }, [item]);
 
   return (
-    <div className="bg-gray-600 rounded shadow p-6 m-10 w-full lg:w-3/4 lg:max-w-lg md:max-w-2xl mx-auto">
+    <div className="section">
       <div className="mb-4">
-        <h1 className="text-white text-2xl text-center font-bold">
-          Edit Project
+        <h1 className="heading">
+          Edit Task
         </h1>
 
         <div className="mt-6">
-          <h1 className="text-white font-bold">Title</h1>
+          <h1 className="font-bold">Title</h1>
           <input
             type="text"
             className="input"
@@ -61,7 +61,7 @@ const EditTask = () => {
 
         <div className="mt-4 flex items-center justify-between">
           <div>
-            <h1 className="text-white font-bold">Start Date</h1>
+            <h1 className="font-bold">Start Date</h1>
             <DatePicker
               selected={moment(startDate).toDate()}
               className="input"
@@ -71,7 +71,7 @@ const EditTask = () => {
           </div>
 
           <div className="">
-            <h1 className="text-white font-bold">End Date</h1>
+            <h1 className="font-bold">End Date</h1>
             <DatePicker
               selected={moment(endDate).toDate()}
               className="input"
@@ -82,7 +82,7 @@ const EditTask = () => {
         </div>
 
         <div className="mt-6">
-          <h1 className="text-white  font-bold">Description</h1>
+          <h1 className="font-bold">Description</h1>
           <textarea
             className="resize-none break-words h-20 input"
             placeholder="Type here..."
@@ -92,25 +92,27 @@ const EditTask = () => {
         </div>
 
         <div className="mt-4">
-          <h1 className="text-white font-bold">Assigned To</h1>
+          <h1 className="font-bold">Assigned To</h1>
           <div className="mt-2">
             <select
-              className="border border-gray-800 py-2 px-3  rounded w-full focus:outline-none"
+              className="border text-black border-gray-800 py-2 px-3  rounded w-full focus:outline-none"
               value={assignedTo}
               onChange={(e) => setAssignedTo(Number(e.target.value))}
             >
               {users.flatMap((user, idx) => (
-                <option key={idx} value={user.id}>{user.username}</option>
+                <option key={idx} value={user.id}>
+                  {user.username}
+                </option>
               ))}
             </select>
           </div>
         </div>
 
         <div className="mt-4">
-          <h1 className="text-white font-bold">Project</h1>
+          <h1 className="font-bold">Project</h1>
           <div className="mt-2">
             <select
-              className="border border-gray-800 py-2 px-3  rounded w-full focus:outline-none"
+              className="border border-gray-800 text-black py-2 px-3  rounded w-full focus:outline-none"
               value={projectId}
               onChange={(e) => setProjectId(Number(e.target.value))}
             >
@@ -120,6 +122,16 @@ const EditTask = () => {
             </select>
           </div>
         </div>
+
+        {/* <div className="mt-4">
+          <h1 className="text-white font-bold">Status</h1>
+          <div className="mt-2">
+            <label className="inline-flex items-center">
+              <input type="checkbox" className="form-checkbox" />
+              <span className="ml-2">Complete</span>
+            </label>
+          </div>
+        </div> */}
 
         <div className="flex items-center justify-between">
           <button

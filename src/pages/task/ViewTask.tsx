@@ -22,12 +22,12 @@ const ViewTask = () => {
     getTaskDetail(Number(id));
   }, []);
 
-  const index = items.findIndex((a)=>a.id == item[0]?.assigned_to)
+  const index = items.findIndex((a) => a.id == item[0]?.assigned_to);
 
   return (
-    <div className="bg-gray-600 text-white rounded shadow p-6 m-10 w-full lg:w-3/4 lg:max-w-lg md:max-w-2xl mx-auto">
+    <div className="section">
       <div className="mb-4">
-        <h1 className=" text-2xl text-center font-bold">View Project</h1>
+        <h1 className="heading">View Task</h1>
 
         <div className="mt-9 flex items-center justify-between">
           <div className="">
@@ -72,14 +72,23 @@ const ViewTask = () => {
           </div>
 
           <div className="">
-          <h1 className="font-bold">Project</h1>
+            <h1 className="font-bold">Project</h1>
             <p className="text-gray-200">{item[0]?.project_id}</p>
           </div>
         </div>
 
-        <div className="mt-6">
-          <h1 className=" font-bold">Description</h1>
-          <p className="text-gray-200">{item[0]?.description}</p>
+        <div className="mt-9 flex items-center justify-between">
+          <div className="">
+            <h1 className="font-bold">Description</h1>
+            <p className="text-gray-200">{item[0]?.description}</p>
+          </div>
+
+          {/* <div className="">
+            <h1 className="font-bold">Status</h1>
+            <p className="text-gray-200">
+              {item[0]?.isCompleted === true ? "Complete" : "Not Completed"}
+            </p>
+          </div> */}
         </div>
 
         <div className="flex items-center justify-between mt-5">

@@ -13,9 +13,9 @@ const ViewProject = () => {
   }, []);
 
   return (
-    <div className="bg-gray-600 text-white rounded shadow p-6 m-10 w-full lg:w-3/4 lg:max-w-lg md:max-w-2xl mx-auto">
+    <div className="section">
       <div className="mb-4">
-        <h1 className=" text-2xl text-center font-bold">View Project</h1>
+        <h1 className="heading">View Project</h1>
 
         <div className="mt-9 flex items-center justify-between">
           <div className="">

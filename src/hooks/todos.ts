@@ -3,7 +3,7 @@ export const TODOURL = "http://localhost:5000/todo"
 import { useState, useCallback } from "react";
 export interface ISendTodoData {
   id?:number;
-  title: string;
+  title?: string;
   description?: string;
   isCompleted?: boolean;
 }

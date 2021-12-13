@@ -1,6 +1,8 @@
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
+  ISendTodoData,
+  TODOURL,
   useDeleteAllTodos,
   useDeleteTodo,
   useFetchTodos,
@@ -11,29 +13,70 @@ const Todos = () => {
   const { items, getTodos } = useFetchTodos();
   const { deleteAllTodos } = useDeleteAllTodos();
   const { deleteTodo } = useDeleteTodo();
+  // const [isCompleted, setIsCompleted] = useState(false);
 
   useEffect(() => {
     getTodos();
   }, []);
 
+  // useEffect(()=>{
+  //   if(items){
+  //     setIsCompleted(items ?? false)
+  //   }
+  // },[items])
+
+  // const editItem = useCallback(
+  //   async (id) => {
+  //     setIsCompleted(!isCompleted)
+  //     const dataObj: ISendTodoData = {
+  //       isCompleted: isCompleted,
+  //     };
+
+  //     const response = await fetch(`${TODOURL}/${id}`, {
+  //       method: "PATCH",
+  //       body: JSON.stringify(dataObj),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Accept: "application/json",
+  //       },
+  //     });
+  //     const res = await response.json();
+  //     console.log(res);
+  //   },
+  //   [isCompleted]
+  // );
+
   return (
-    <div className="bg-gray-600 rounded shadow p-6 m-10 w-full lg:w-3/4 lg:max-w-lg mx-auto">
-      <h1 className="text-white text-2xl text-center underline font-bold">Todos</h1>
-      <div className="mt-6 text-white ">
+    <div className="section">
+      <h1 className="heading">
+        Todos
+      </h1>
+      <div className="mt-6">
         {items.length === 0 ? (
-          "No Todo Created"
+          <div className="text-center">No Todo Created</div>
         ) : (
           <>
-          <div className="flex mb-3 items-center p-1">
-            <p className="mr-6 w-full"> Todo Name </p>
-            <p className="">Actions</p>
-          </div>
+            <div className="flex mb-3 items-center p-1">
+              {/* <p className="mr-6 w-1/4">Status</p> */}
+              <p className="mr-6 w-full"> Todo Name </p>
+              <p className="">Actions</p>
+            </div>
             {items.map((item) => (
               <div
                 key={item.id}
-                className="flex mb-4 items-center bg-gray-800 rounded p-2"
+                className="list"
               >
-                <p className="w-full text-white">{item.title}</p>
+                {/* <div className="w-1/4 mr-7">
+                  <label className="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      className="form-checkbox"
+                      checked={isCompleted}
+                      onChange={()=>editItem(item.id)}
+                    />
+                  </label>
+                </div> */}
+                <p className="w-full capitalize">{item.title}</p>
                 <button
                   className="iconBtn mr-2 "
                   onClick={() => history.push(`/edit/${item.id}`)}
@@ -97,13 +140,13 @@ const Todos = () => {
           <span>Create Todo</span>
         </button>
         {items.length !== 0 ? (
-        <button
-          className="button"
-          onClick={() => {
-            deleteAllTodos().then(() => getTodos());
-          }}
-        >
-          <svg
+          <button
+            className="button"
+            onClick={() => {
+              deleteAllTodos().then(() => getTodos());
+            }}
+          >
+            <svg
               className="h-5 w-5 mr-1"
               preserveAspectRatio="xMidYMid meet"
               viewBox="0 0 32 32"
@@ -117,9 +160,11 @@ const Todos = () => {
               ></path>
               <path d="M12 2h8v2h-8z" fill="currentColor"></path>
             </svg>
-          <span>Remove All</span>
-        </button>
-      ):""}
+            <span>Remove All</span>
+          </button>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

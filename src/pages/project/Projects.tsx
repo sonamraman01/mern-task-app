@@ -17,13 +17,13 @@ const Projects = () => {
   }, []);
 
   return (
-    <div className="bg-gray-600 rounded shadow p-6 m-10 w-full lg:w-3/4 lg:max-w-lg mx-auto">
-      <h1 className="text-white text-2xl text-center font-bold underline">
+    <div className="section">
+      <h1 className="heading">
         Projects
       </h1>
-      <div className="mt-6 text-white ">
+      <div className="mt-6 ">
         {items.length === 0 ? (
-          "No Project Created"
+          <div className="text-center">No Project Created</div>
         ) : (
           <>
             <div className="flex mb-3 items-center p-1">
@@ -34,10 +34,10 @@ const Projects = () => {
             {items.map((item) => (
               <div
                 key={item.id}
-                className="flex mb-4 items-center bg-gray-800 rounded p-2"
+                className="list"
               >
                 <p className="w-1/6 mr-6">{item.id}</p>
-                <p className="w-full text-white">{item.title}</p>
+                <p className="w-full capitalize">{item.title}</p>
 
                 <button
                   className="iconBtn mr-2 "

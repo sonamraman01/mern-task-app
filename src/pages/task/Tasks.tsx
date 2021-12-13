@@ -13,30 +13,32 @@ const Tasks = () => {
     }, []);
     
     return (
-        <div className="bg-gray-600 rounded shadow p-6 m-10 w-full lg:w-3/4 lg:max-w-lg mx-auto">
-      <h1 className="text-white text-2xl text-center font-bold underline">
+        <div className="section1">
+      <h1 className="heading">
         Tasks
       </h1>
-      <div className="mt-6 text-white ">
+      <div className="mt-6">
         {items.length === 0 ? (
-          "No Task Created"
+          <div className="text-center">No Task Created</div>
         ) : (
           <>
             <div className="flex mb-3 items-center p-1">
-              <p className="mr-6 w-1/6">ID</p>
-              <p className="mr-6 w-full">Task Name</p>
+              <p className="mr-6 w-1/12">ID</p>
+              {/* <p className="mr-6 w-1/4">Status</p> */}
+              <p className="mr-6 w-full">Task Name</p>             
               <p className="">Actions</p>
             </div>
             {items.map((item) => (
               <div
                 key={item.id}
-                className="flex mb-4 items-center bg-gray-800 rounded p-2"
+                className="list"
               >
-                <p className="w-1/6 mr-6">{item.id}</p>
-                <p className="w-full text-white">{item.title}</p>
+                <p className="w-1/12 mr-7">{item.id}</p>
+                {/* <p className="w-1/4 mr-10">{item.isCompleted === true ? "Complete" : "Not Completed"}</p> */}
+                <p className="w-full capitalize">{item.title}</p>
 
                 <button
-                  className="iconBtn mr-2 "
+                  className="iconBtn mr-2"
                   onClick={() => history.push(`/viewtask/${item.id}`)}
                 >
                   <svg
@@ -62,7 +64,7 @@ const Tasks = () => {
                 </button>
 
                 <button
-                  className="iconBtn mr-2 "
+                  className="iconBtn mr-2"
                   onClick={() => history.push(`/edittask/${item.id}`)}
                 >
                   <svg

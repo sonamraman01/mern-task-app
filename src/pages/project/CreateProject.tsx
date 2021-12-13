@@ -40,13 +40,13 @@ const CreateProject = () => {
   },[title, description, client, startDate, endDate]);
 
   return (
-    <div className="bg-gray-600 rounded shadow p-6 m-10 w-full lg:w-3/4 lg:max-w-lg md:max-w-2xl mx-auto">
-      <h1 className="text-white text-2xl text-center font-bold">
+    <div className="section">
+      <h1 className="heading">
         Create Project
       </h1>
 
       <div className="mt-6">
-        <h1 className="text-white font-bold">Title</h1>
+        <h1 className="font-bold">Title</h1>
         <input
           type="text"
           className="input"
@@ -58,7 +58,7 @@ const CreateProject = () => {
 
       <div className="mt-4 flex items-center justify-between">
         <div>
-          <h1 className="text-white font-bold">Start Date</h1>
+          <h1 className="font-bold">Start Date</h1>
           <DatePicker
             selected={moment(startDate).toDate()}
             className="input"
@@ -76,7 +76,7 @@ const CreateProject = () => {
         </div>
 
         <div className="">
-          <h1 className="text-white font-bold">End Date</h1>
+          <h1 className="font-bold">End Date</h1>
           <DatePicker
             selected={moment(endDate).toDate()}
             className="input"
@@ -95,7 +95,7 @@ const CreateProject = () => {
       </div>
 
       <div className="mt-4">
-        <h1 className="text-white font-bold">Client</h1>
+        <h1 className="font-bold">Client</h1>
         <input
           type="text"
           className="input"
@@ -106,7 +106,7 @@ const CreateProject = () => {
       </div>
 
       <div className="mt-6">
-        <h1 className="text-white  font-bold">Description</h1>
+        <h1 className="font-bold">Description</h1>
         <textarea
           className="resize-none break-words h-20 input"
           placeholder="Type here..."
