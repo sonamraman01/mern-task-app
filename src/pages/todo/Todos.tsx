@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
-  ISendTodoData,
-  TODOURL,
   useDeleteAllTodos,
   useDeleteTodo,
   useFetchTodos,
@@ -52,7 +50,7 @@ const Todos = () => {
         Todos
       </h1>
       <div className="mt-6">
-        {items.length === 0 ? (
+        {items?.length === 0 ? (
           <div className="text-center">No Todo Created</div>
         ) : (
           <>
@@ -61,7 +59,7 @@ const Todos = () => {
               <p className="mr-6 w-full"> Todo Name </p>
               <p className="">Actions</p>
             </div>
-            {items.map((item) => (
+            {items?.map((item) => (
               <div
                 key={item.id}
                 className="list"
@@ -140,7 +138,7 @@ const Todos = () => {
           </svg>
           <span>Create Todo</span>
         </button>
-        {items.length !== 0 ? (
+        {items?.length !== 0 ? (
           <button
             className="button"
             onClick={() => {

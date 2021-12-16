@@ -1,5 +1,12 @@
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import {
+  HashRouter as Router,
+  Route,
+  Redirect,
+  useLocation,
+  Switch,
+} from "react-router-dom";
 import Header from "../pages/Header";
+import Home from "../pages/Home";
 import CreateProject from "../pages/project/CreateProject";
 import EditProject from "../pages/project/EditProject";
 import Projects from "../pages/project/Projects";
@@ -14,28 +21,82 @@ import Todos from "../pages/todo/Todos";
 import Login from "../pages/user/Login";
 import Signup from "../pages/user/Signup";
 import Users from "../pages/user/Users";
+import PrivateRoute from "./PrivateRoute";
+import PublicRoute from "./PublicRoute";
+
+function MySwitch() {
+  const location = useLocation();
+  return (
+    <Switch location={location}>
+      <PrivateRoute path="/user">
+        <Users />
+      </PrivateRoute>
+
+      <PrivateRoute path="/todo">
+        <Todos />
+      </PrivateRoute>
+
+      <PrivateRoute path="/createtodo">
+        <Create />
+      </PrivateRoute>
+
+      <PrivateRoute path="/edit/:id">
+        <EditTodo />
+      </PrivateRoute>
+
+      <PrivateRoute path="/project">
+        <Projects />
+      </PrivateRoute>
+
+      <PrivateRoute path="/createproject">
+        <CreateProject />
+      </PrivateRoute>
+
+      <PrivateRoute path="/editproject/:id">
+        <EditProject />
+      </PrivateRoute>
+
+      <PrivateRoute path="/viewproject/:id">
+        <ViewProject />
+      </PrivateRoute>
+
+      <PrivateRoute path="/task">
+        <Tasks />
+      </PrivateRoute>
+
+      <PrivateRoute path="/createtask">
+        <CreateTask />
+      </PrivateRoute>
+
+      <PrivateRoute path="/edittask/:id">
+        <EditTask />
+      </PrivateRoute>
+
+      <PrivateRoute path="/viewtask/:id">
+        <ViewTask />
+      </PrivateRoute>
+
+      <PublicRoute path="/">
+        <Home />
+      </PublicRoute>
+
+      {/* <PublicRoute path="/signup">
+        <SignupScreen />
+      </PublicRoute> */}
+
+      <Route path="*">
+        <Redirect to="/" />
+      </Route>
+    </Switch>
+  );
+}
 
 const Routes = () => {
   return (
-    <BrowserRouter>
+    <Router>
       <Header />
-      <Switch>
-        <Route exact path="/" component={Todos} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/signup" component={Signup} />
-        <Route exact path="/user" component={Users} />
-        <Route exact path="/createtodo" component={Create} />
-        <Route exact path="/edit/:id" component={EditTodo} />
-        <Route exact path="/project" component={Projects} />
-        <Route exact path="/createproject" component={CreateProject} />
-        <Route exact path="/editproject/:id" component={EditProject} />
-        <Route exact path="/viewproject/:id" component={ViewProject} />
-        <Route exact path="/task" component={Tasks} />
-        <Route exact path="/createtask" component={CreateTask} />
-        <Route exact path="/edittask/:id" component={EditTask} />
-        <Route exact path="/viewtask/:id" component={ViewTask} />
-      </Switch>
-    </BrowserRouter>
+      <MySwitch/>
+    </Router>
   );
 };
 

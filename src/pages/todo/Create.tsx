@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { ISendTodoData, TODOURL } from "../../hooks/todos";
+import { TODOURL, token } from "../../hooks/Constants";
+import { ISendTodoData } from "../../types/Types";
 
 const Create = () => {
   const history = useHistory();
@@ -19,6 +20,7 @@ const Create = () => {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
     console.log(response);

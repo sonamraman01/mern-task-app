@@ -1,21 +1,17 @@
-export const PROJECTURL = "http://localhost:5000/project"
-
 import { useState, useCallback } from "react";
-export interface ISendProjectData {
-  id?: number;
-  title?: string;
-  description?: string;
-  start?: Date;
-  end?: Date;
-  client?: string;
-}
+import { ISendProjectData } from "../types/Types";
+import { PROJECTURL, token } from "./Constants";
 
 export const useFetchProjects = () => {
   const [items, setItems] = useState<ISendProjectData[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const getProjects = useCallback(() => {
     setLoading(true);
-    fetch(PROJECTURL)
+    fetch(PROJECTURL,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setItems(data.payload);
@@ -32,7 +28,11 @@ export const useGetProjectDetails = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const getProjectDetail = useCallback((id: number) => {
     setLoading(true);
-    fetch(`${PROJECTURL}/${id}`)
+    fetch(`${PROJECTURL}/${id}`,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setItem(data.payload);
@@ -50,6 +50,9 @@ export const useDeleteAllProjects = () => {
     setLoading(true);
     return fetch(PROJECTURL, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((res) => res.json())
       .then(() => {
@@ -65,6 +68,9 @@ export const useDeleteProject = () => {
     setLoading(true);
     return fetch(`${PROJECTURL}/${id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((res) => res.json())
       .then(() => {

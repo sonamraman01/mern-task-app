@@ -22,7 +22,7 @@ const Projects = () => {
         Projects
       </h1>
       <div className="mt-6 ">
-        {items.length === 0 ? (
+        {items?.length === 0 ? (
           <div className="text-center">No Project Created</div>
         ) : (
           <>
@@ -31,7 +31,7 @@ const Projects = () => {
               <p className="mr-6 w-full">Project Name</p>
               <p className="">Actions</p>
             </div>
-            {items.map((item) => (
+            {items?.map((item) => (
               <div
                 key={item.id}
                 className="list"
@@ -133,7 +133,7 @@ const Projects = () => {
           Project
         </button>
 
-        {items.length !== 0 ? (
+        {items?.length !== 0 ? (
           <button
             className="button"
             onClick={() => {

@@ -1,19 +1,17 @@
-export const TODOURL = "http://localhost:5000/todo"
-
 import { useState, useCallback } from "react";
-export interface ISendTodoData {
-  id?:number;
-  title?: string;
-  description?: string;
-  isCompleted?: boolean;
-}
+import { ISendTodoData } from "../types/Types";
+import { TODOURL, token } from "./Constants";
 
 export const useFetchTodos = () => {
   const [items, setItems] = useState<ISendTodoData[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const getTodos = useCallback(() => {
     setLoading(true);
-    fetch(TODOURL)
+    fetch(TODOURL,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setItems(data.payload);
@@ -30,7 +28,11 @@ export const getTodoDetails = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const getTodoDetail = useCallback((id: number) => {
     setLoading(true);
-    fetch(`${TODOURL}/${id}`)
+    fetch(`${TODOURL}/${id}`,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setItems(data.payload);
@@ -48,6 +50,9 @@ export const useDeleteAllTodos = () => {
     setLoading(true);
     return fetch(TODOURL, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((res) => res.json())
       .then(() => {
@@ -63,6 +68,9 @@ export const useDeleteTodo = () => {
     setLoading(true);
     return fetch(`${TODOURL}/${id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((res) => res.json())
       .then(() => {

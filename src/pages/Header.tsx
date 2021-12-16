@@ -10,15 +10,15 @@ const Header = () => {
   const [showModal, setShowModal] = useState(false);
   const [showAlert, setAlert] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [active, setActive] = useState("todo")
+  const [active, setActive] = useState("home");
 
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    if(token !== null){
-      setIsLoggedIn(true)
+    if (token !== null) {
+      setIsLoggedIn(true);
     }
-  }, [token])
+  }, [token]);
 
   return (
     <>
@@ -57,7 +57,9 @@ const Header = () => {
             <button
               className="text-white text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
               type="button"
-              onClick={() => {setNavbarOpen(!navbarOpen)}}
+              onClick={() => {
+                setNavbarOpen(!navbarOpen);
+              }}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -78,47 +80,77 @@ const Header = () => {
 
           <div className={"md:flex flex-grow" + (navbarOpen ? " " : " hidden")}>
             <div className="md:flex-grow mt-5 md:mt-0 flex flex-col lg:flex-row list-none lg:ml-auto items-center w-auto text-sm">
-              <button
-                onClick={() => {history.push("/"); setActive("todo")}}
-                className={`navbar-item ${active === "todo" ? "underline" : ""}`}
-              >
-                Todos
-              </button>
+              {!isLoggedIn ? (
+                <button
+                  onClick={() => {
+                    history.push("/");
+                    setActive("home");
+                  }}
+                  className={`navbar-item ${
+                    active === "home" ? "underline" : ""
+                  }`}
+                >
+                  Home
+                </button>
+              ) : (
+                <>
+                  <button
+                    onClick={() => {
+                      history.push("/todo");
+                      setActive("todo");
+                    }}
+                    className={`navbar-item ${
+                      active === "todo" ? "underline" : ""
+                    }`}
+                  >
+                    Todos
+                  </button>
 
-              <button
-                onClick={() => {history.push("/user"); setActive("user")}}
-                className={`navbar-item ${active === "user" ? "underline" : ""}`}
-              >
-                Users
-              </button>
+                  <button
+                    onClick={() => {
+                      history.push("/user");
+                      setActive("user");
+                    }}
+                    className={`navbar-item ${
+                      active === "user" ? "underline" : ""
+                    }`}
+                  >
+                    Users
+                  </button>
 
-              <button
-                onClick={() => {history.push("/project"); setActive("project")}}
-                className={`navbar-item ${active === "project" ? "underline" : ""}`}
-              >
-                Projects
-              </button>
+                  <button
+                    onClick={() => {
+                      history.push("/project");
+                      setActive("project");
+                    }}
+                    className={`navbar-item ${
+                      active === "project" ? "underline" : ""
+                    }`}
+                  >
+                    Projects
+                  </button>
 
-              <button
-                onClick={() => {history.push("/task"); setActive("task")}}
-                className={`navbar-item ${active === "task" ? "underline" : ""}`}
-              >
-                Tasks
-              </button>
+                  <button
+                    onClick={() => {
+                      history.push("/task");
+                      setActive("task");
+                    }}
+                    className={`navbar-item ${
+                      active === "task" ? "underline" : ""
+                    }`}
+                  >
+                    Tasks
+                  </button>
+                </>
+              )}
             </div>
 
             {!isLoggedIn ? (
-              <button
-                onClick={() => setShowModal(true)}
-                className="navbar-btn"
-              >
+              <button onClick={() => setShowModal(true)} className="navbar-btn">
                 Login
               </button>
             ) : (
-              <button
-                onClick={() => setAlert(true)}
-                className="navbar-btn"
-              >
+              <button onClick={() => setAlert(true)} className="navbar-btn">
                 Logout
               </button>
             )}

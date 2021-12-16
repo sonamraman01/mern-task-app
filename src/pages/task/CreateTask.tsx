@@ -2,9 +2,10 @@ import moment from "moment";
 import { useCallback, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { useHistory } from "react-router-dom";
+import { TASKURL, token } from "../../hooks/Constants";
 import { useFetchProjects } from "../../hooks/project";
-import { ITaskData, TASKURL } from "../../hooks/task";
 import { useFetchUsers } from "../../hooks/user";
+import { ITaskData } from "../../types/Types";
 
 const CreateTask = () => {
   const history = useHistory();
@@ -39,6 +40,7 @@ const CreateTask = () => {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
     const res = await response.json();
@@ -110,7 +112,8 @@ const CreateTask = () => {
             value={assignedTo}
             onChange={(e)=>setAssignedTo(Number(e.target.value))}
           >
-            {users.flatMap((user,idx)=>(
+            <option>Select</option>
+            {users?.flatMap((user,idx)=>(
                 <option key={idx} value={user.id}>{user.username}</option>
               ))}
           </select>
@@ -125,7 +128,8 @@ const CreateTask = () => {
             value={projectId}
             onChange={(e)=>setProjectId(Number(e.target.value))}
           >
-              {items.flatMap((item,idx)=>(
+            <option>Select</option>
+              {items?.flatMap((item,idx)=>(
                 <option key={idx} value={item.id}>{item.title}</option>
               ))}
           </select>

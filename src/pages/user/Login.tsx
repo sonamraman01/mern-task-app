@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import HeaderContext from "../../context/headerContext";
-import { BASEURL } from "../../hooks/user";
+import { BASEURL } from "../../hooks/Constants";
+import { Entities } from "../../types/Types";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -21,8 +22,8 @@ const Login = () => {
     if (response && response.ok) {
       const data = await response.json();
       console.log(data);
-      localStorage.id = data.payload.user.id;
-      localStorage.token = data.payload.access_token;
+      localStorage.setItem("entities", JSON.stringify(data?.payload as Entities));
+      localStorage.token = data?.payload.token;
       setIsLoggedIn(true);
       setShowModal(false);
     }else{

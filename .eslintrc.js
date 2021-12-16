@@ -23,6 +23,7 @@ module.exports = {
     ],
     "rules": {
         "no-unused-vars": 0,
+        "react/no-unescaped-entities" : 0,
         "react/react-in-jsx-scope": "off",
         "@typescript-eslint/no-unused-vars": 0,
         "@typescript-eslint/explicit-module-boundary-types": "off",

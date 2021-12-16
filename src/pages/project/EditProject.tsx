@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import {
-  ISendProjectData,
-  PROJECTURL,
   useGetProjectDetails,
 } from "../../hooks/project";
 import DatePicker from "react-datepicker";
 import moment from "moment";
+import { PROJECTURL, token } from "../../hooks/Constants";
+import { ISendProjectData } from "../../types/Types";
 
 const EditProject = () => {
   const history = useHistory();
@@ -48,6 +48,7 @@ const EditProject = () => {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
     const res = await response.json();

@@ -1,24 +1,17 @@
 import { useState, useCallback } from "react";
-
-export const TASKURL = "http://localhost:5000/task"
-
-export interface ITaskData {
-  id?: number;
-  title: string;
-  description: string;
-  start: Date;
-  end: Date;
-  assigned_to?: number;
-  project_id?: number;
-  isCompleted?: boolean;
-}
+import { ITaskData } from "../types/Types";
+import { TASKURL, token } from "./Constants";
 
 export const useFetchTasks = () => {
     const [items, setItems] = useState<ITaskData[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const getTasks = useCallback(() => {
       setLoading(true);
-      fetch(TASKURL)
+      fetch(TASKURL,{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
         .then((res) => res.json())
         .then((data) => {
           setItems(data.payload);
@@ -35,7 +28,11 @@ export const useFetchTasks = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const getTaskDetail = useCallback((id: number) => {
       setLoading(true);
-      fetch(`${TASKURL}/${id}`)
+      fetch(`${TASKURL}/${id}`,{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
         .then((res) => res.json())
         .then((data) => {
           setItem(data.payload);
@@ -53,6 +50,9 @@ export const useFetchTasks = () => {
       setLoading(true);
       return fetch(TASKURL, {
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
         .then((res) => res.json())
         .then(() => {
@@ -68,6 +68,9 @@ export const useFetchTasks = () => {
       setLoading(true);
       return fetch(`${TASKURL}/${id}`, {
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
         .then((res) => res.json())
         .then(() => {

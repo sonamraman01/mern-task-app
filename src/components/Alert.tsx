@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import HeaderContext from "../context/headerContext";
-import { BASEURL } from "../hooks/user";
+import { BASEURL } from "../hooks/Constants";
 
-const userId = localStorage.getItem("id");
+const id = localStorage.getItem("id");
 const token = localStorage.getItem("token")
 
 const Alert = () => {
@@ -11,7 +11,7 @@ const Alert = () => {
   const handleLogout = async () => {
     const response = await fetch(`${BASEURL}/logout`, {
       method: "POST",
-      body: JSON.stringify({ userId }),
+      body: JSON.stringify({ id }),
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -19,13 +19,11 @@ const Alert = () => {
       },
     });
     if (response && response.ok) {
-      // const data = await response.json();
-      // console.log(data);
       setAlert(false);
       setIsLoggedIn(false);
-      // window.location.href = "/";
+      localStorage.clear();
+      window.location.href = "/";
     }
-    console.log(userId)
   };
 
   return (

@@ -17,22 +17,24 @@ const Users = () => {
         Users
       </h1>
       <div className="mt-6">
-        {users.length === 0 ? (
+        {users?.length === 0 ? (
           <div className="text-center">No User</div>
         ) : (
           <>
             <div className="flex mb-3 items-center p-1">
               <p className="mr-6 w-1/6">ID</p>
               <p className="mr-6 w-full">Users</p>
+              <p className="w-1/2">Role</p>
               {/* <p className="">Actions</p> */}
             </div>
-            {users.map((item) => (
+            {users?.map((item) => (
               <div
                 key={item.id}
                 className="list"
               >
-                <p className="w-1/6 mr-6">{item.id}</p>
-                <p className="w-full capitalize">{item.username}</p>
+                <p className="w-1/6 mr-4">{item.id}</p>
+                <p className="w-full mr-6 capitalize">{item.username}</p>
+                <p className="w-1/2 capitalize">{item.role}</p>
 
                 {/* <button
                   className="iconBtn"

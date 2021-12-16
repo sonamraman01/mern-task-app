@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { getTodoDetails, ISendTodoData, TODOURL } from "../../hooks/todos";
+import { TODOURL, token } from "../../hooks/Constants";
+import { getTodoDetails } from "../../hooks/todos";
+import { ISendTodoData } from "../../types/Types";
 
 const EditTodo = () => {
   const { item, getTodoDetail } = getTodoDetails();
@@ -32,6 +34,7 @@ const EditTodo = () => {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
     const res = await response.json();

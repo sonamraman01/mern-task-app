@@ -1,8 +1,9 @@
 import { useCallback, useState } from "react";
-import { ISendProjectData, PROJECTURL } from "../../hooks/project";
 import DatePicker from "react-datepicker";
 import { useHistory } from "react-router-dom";
 import moment from "moment";
+import { PROJECTURL, token } from "../../hooks/Constants";
+import { ISendProjectData } from "../../types/Types";
 
 const CreateProject = () => {
   const history = useHistory();
@@ -27,6 +28,7 @@ const CreateProject = () => {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
     const res = await response.json();

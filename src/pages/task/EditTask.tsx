@@ -1,10 +1,12 @@
 import DatePicker from "react-datepicker";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useGetTaskDetails } from "../../hooks/task";
 import { useFetchProjects } from "../../hooks/project";
 import { useFetchUsers } from "../../hooks/user";
 import moment from "moment";
+import { TASKURL, token } from "../../hooks/Constants";
+import { ITaskData } from "../../types/Types";
 
 const EditTask = () => {
   const history = useHistory();
@@ -40,6 +42,29 @@ const EditTask = () => {
       setProjectId(item[0].project_id);
     }
   }, [item]);
+
+  const editItem = useCallback(async () => {
+    const dataObj: ITaskData = {
+      title: title,
+      description: description,
+      start: startDate,
+      end: endDate,
+      assigned_to: assignedTo,
+      project_id: projectId,
+    };
+    const response = await fetch(`${TASKURL}/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify(dataObj),
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const res = await response.json();
+    console.log(res);
+    history.push("/task");
+  },[title, description, startDate, endDate, assignedTo, projectId]);
 
   return (
     <div className="section">
@@ -99,7 +124,8 @@ const EditTask = () => {
               value={assignedTo}
               onChange={(e) => setAssignedTo(Number(e.target.value))}
             >
-              {users.flatMap((user, idx) => (
+              <option>Select</option>
+              {users?.flatMap((user, idx) => (
                 <option key={idx} value={user.id}>
                   {user.username}
                 </option>
@@ -116,7 +142,8 @@ const EditTask = () => {
               value={projectId}
               onChange={(e) => setProjectId(Number(e.target.value))}
             >
-              {items.flatMap((item) => (
+              <option>Select</option>
+              {items?.flatMap((item) => (
                 <option value={item.id}>{item.title}</option>
               ))}
             </select>
@@ -136,7 +163,7 @@ const EditTask = () => {
         <div className="flex items-center justify-between">
           <button
             className="button"
-            //   onClick={editItem}
+              onClick={editItem}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

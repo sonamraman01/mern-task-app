@@ -46,7 +46,7 @@ const Modal = () => {
               {active === "login" ? (
                 <Login />
               ) : (
-                <Signup/>
+                <Signup setActive = {setActive}/>
               )}
             </div>
           </div>

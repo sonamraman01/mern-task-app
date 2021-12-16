@@ -1,38 +1,37 @@
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { useDeleteAllTasks, useDeleteTask, useFetchTasks } from "../../hooks/task";
+import {
+  useDeleteAllTasks,
+  useDeleteTask,
+  useFetchTasks,
+} from "../../hooks/task";
 
 const Tasks = () => {
-    const history = useHistory();
-    const { items, getTasks } = useFetchTasks();
-    const { deleteAllTasks } = useDeleteAllTasks();
-    const { deleteTask } = useDeleteTask();
-  
-    useEffect(() => {
-        getTasks();
-    }, []);
-    
-    return (
-        <div className="section1">
-      <h1 className="heading">
-        Tasks
-      </h1>
+  const history = useHistory();
+  const { items, getTasks } = useFetchTasks();
+  const { deleteAllTasks } = useDeleteAllTasks();
+  const { deleteTask } = useDeleteTask();
+
+  useEffect(() => {
+    getTasks();
+  }, []);
+
+  return (
+    <div className="section1">
+      <h1 className="heading">Tasks</h1>
       <div className="mt-6">
-        {items.length === 0 ? (
+        {items?.length === 0 ? (
           <div className="text-center">No Task Created</div>
         ) : (
           <>
             <div className="flex mb-3 items-center p-1">
               <p className="mr-6 w-1/12">ID</p>
               {/* <p className="mr-6 w-1/4">Status</p> */}
-              <p className="mr-6 w-full">Task Name</p>             
+              <p className="mr-6 w-full">Task Name</p>
               <p className="">Actions</p>
             </div>
-            {items.map((item) => (
-              <div
-                key={item.id}
-                className="list"
-              >
+            {items?.map((item) => (
+              <div key={item.id} className="list">
                 <p className="w-1/12 mr-7">{item.id}</p>
                 {/* <p className="w-1/4 mr-10">{item.isCompleted === true ? "Complete" : "Not Completed"}</p> */}
                 <p className="w-full capitalize">{item.title}</p>
@@ -85,9 +84,7 @@ const Tasks = () => {
 
                 <button
                   className="iconBtn"
-                  onClick={() =>
-                    deleteTask(item.id!).then(() => getTasks())
-                  }
+                  onClick={() => deleteTask(item.id!).then(() => getTasks())}
                 >
                   <svg
                     width="32"
@@ -112,10 +109,7 @@ const Tasks = () => {
       </div>
 
       <div className="flex items-center justify-between">
-        <button
-          className="button"
-          onClick={() => history.push("/createtask")}
-        >
+        <button className="button" onClick={() => history.push("/createtask")}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 mr-1"
@@ -131,7 +125,7 @@ const Tasks = () => {
           Task
         </button>
 
-        {items.length !== 0 ? (
+        {items?.length !== 0 ? (
           <button
             className="button"
             onClick={() => {
@@ -159,7 +153,7 @@ const Tasks = () => {
         )}
       </div>
     </div>
-    )
-}
+  );
+};
 
-export default Tasks
+export default Tasks;
